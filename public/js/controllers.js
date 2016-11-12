@@ -3,23 +3,21 @@ angular.module('monitorApp.controllers',['ui.bootstrap', 'angularUtils.directive
   $scope.data = [];
   $scope.temps = [[]];
 
+  $scope.lastData = {};
+
   $http.get("/data")
     .then(function(response) {
         $scope.data = response.data.data;
-
+        $scope.lastData = $scope.data[0];
         for(var i = 0; i<$scope.data.length; i++){
           $scope.temps[0].push($scope.data[i].value);
           $scope.labels.push($scope.data[i].timestamp);
         }
 
-
-
     });
     $scope.labels = [];
-     $scope.series = ['Temperaturas'];
-     /*$scope.temps = [
-       [65, 59, 80, 81, 56, 55, 40]
-     ];*/
+     $scope.series = ['Temperatura'];
+
      $scope.onClick = function (points, evt) {
        console.log(points, evt);
      };
