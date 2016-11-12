@@ -75,6 +75,53 @@ app.get('/data', function (req, res) {
         'IOT-Authorized-User': appUser
       }
    };
+   console.log(options.path);
+
+  return http.get(options, function(response, callback ) {
+       // Continuously update stream with data
+       var body = '';
+       response.on('data', function(d) {
+           body += d;
+       });
+       response.on('end', function() {
+
+           // Data reception is done, do whatever with it!
+           var parsed = JSON.parse(body);
+           //callback(parsed);
+           //console.log(parsed);
+           res.send(parsed);
+           //res.send(body);
+       });
+       response.on('error', function(e){
+         console.log(`error $e`);
+       });
+     });
+
+
+  //res.send('Hello World!');
+});
+
+
+
+app.get('/data/actual', function (req, res) {
+
+  var currentTimestamp = new Date().getTime();
+  var preToken = `${currentTimestamp}${pass}${appName}`;
+  var hash = md5(preToken);
+  console.log(currentTimestamp);
+  console.log(preToken);
+  console.log(hash);
+
+  var options = {
+      host: 'api.iotsens.com',
+      path: `/v1/sensors/${sensorId}/variables/${variableName}/measures`,
+      headers: {
+        'GG-Requester-Application': appName,
+        'GG-Request-Timestamp': currentTimestamp,
+        'GG-Request-Signature': hash,
+        'IOT-Authorized-User': appUser
+      }
+   };
 
 
    console.log(options.path);
@@ -91,7 +138,7 @@ app.get('/data', function (req, res) {
            var parsed = JSON.parse(body);
            //callback(parsed);
            //console.log(parsed);
-           res.send(parsed);
+           res.send(parsed.data[0].value);
            //res.send(body);
        });
        response.on('error', function(e){
