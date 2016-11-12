@@ -16,7 +16,7 @@ angular.module('monitorApp.controllers',['ui.bootstrap', 'angularUtils.directive
           $scope.temps = [[]];
           $scope.labels = [];
 
-          for(var i = 0; i<$scope.data.length; i++){
+          for(var i = 0; i<10/*$scope.data.length*/; i++){
             $scope.temps[0].push($scope.data[i].value);
             var time = $scope.data[i].timestamp.substring(10, 20);
             $scope.labels.push(time);
