@@ -13,6 +13,10 @@ angular.module('monitorApp.controllers',['ui.bootstrap', 'angularUtils.directive
           $scope.temps[0].push($scope.data[i].value);
           $scope.labels.push($scope.data[i].timestamp);
         }
+        console.log($scope.labels);
+        $scope.temps[0].reverse();
+        $scope.labels.reverse();
+        console.log($scope.labels);
 
     });
     $scope.labels = [];
