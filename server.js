@@ -33,7 +33,7 @@ app.use('/api', router);
 var appName       = 'HACKATON2016',
     pass          = 'hackATHon20!6CS',
     appUser       = 'reto1',
-    sensorId      = 'SENSOR_HACKATHON',
+    sensorId      = 'SENSOR_TEMPERATURA',
     variableName  = 'temperatura';
 
 
