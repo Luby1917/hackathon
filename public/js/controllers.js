@@ -13,6 +13,21 @@ angular.module('monitorApp.controllers',['ui.bootstrap', 'angularUtils.directive
           $scope.data = response.data.data;
           $scope.lastData = $scope.data[0];
 
+          $scope.temps = [[]];
+          $scope.labels = [];
+
+          for(var i = 0; i<$scope.data.length; i++){
+            $scope.temps[0].push($scope.data[i].value);
+            var time = $scope.data[i].timestamp.substring(10, 20);
+            $scope.labels.push(time);
+          }
+
+          $scope.temps[0].reverse();
+          $scope.labels.reverse();
+
+
+
+          /*
           var oldLength = $scope.temps[0].length;
           var newLength = $scope.data.length;
 
@@ -24,18 +39,17 @@ angular.module('monitorApp.controllers',['ui.bootstrap', 'angularUtils.directive
             //var diffLength = newLength - oldLength;
             for(var i = oldLength; i<$scope.data.length; i++){
               $scope.temps[0].push($scope.data[i].value);
-              $scope.labels.push($scope.data[i].timestamp);
+              var time = $scope.data[i].timestamp.substring(10, 20);
+              $scope.labels.push(time);
             }
-
-
           }
+          */
           /*else{
 
             for(var i = 0; i<$scope.data.length; i++){
               $scope.temps[0].push($scope.data[i].value);
               $scope.labels.push($scope.data[i].timestamp);
             }
-            
             //console.log($scope.labels);
             //$scope.temps[0].reverse();
             //$scope.labels.reverse();
